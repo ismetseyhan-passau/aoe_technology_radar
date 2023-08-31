@@ -20,9 +20,13 @@ One of the standout features of this customization tool is its ability to displa
 
 https://techradar.ismetseyhan.com/index.html
 
-![Customization Tool]([http://url/to/img.png](https://ismetseyhan.com/documents/techradar/tech1.png))
-![Customization Tool]([http://url/to/img.png](https://ismetseyhan.com/documents/techradar/tech2.png))
-![Customization Tool]([http://url/to/img.png](https://ismetseyhan.com/documents/techradar/tech3.png))
+------
+
+![alt text](https://ismetseyhan.com/documents/techradar/tech1.png)
+
+![alt text](https://ismetseyhan.com/documents/techradar/tech2.png)
+
+![alt text](https://ismetseyhan.com/documents/techradar/tech3.png)
 
 ------
 
