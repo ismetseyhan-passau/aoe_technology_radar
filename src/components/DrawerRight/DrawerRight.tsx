@@ -1,24 +1,24 @@
-import React, { ChangeEvent, useRef, useState } from "react";
+import React, { useState } from "react";
 
 import { useConfig } from "../../context/ConfigContext/ConfigContext";
+import ConfigEditor from "../ConfigEditor/ConfigEditor";
+import DataEditor from "../DataEditor/DataEditor";
 import "./drawerRight.css";
 
 const Drawer: React.FC = () => {
-  const {
-    data,
-    updateConfigContext,
-    config,
-    resetConfigContext,
-    resetDataContext,
-  } = useConfig();
-  const [isOpen, setIsOpen] = useState(false);
+  const { resetConfigContext, resetDataContext, emptyDataContext } =
+    useConfig();
+  const [isOpen, setIsOpen] = useState(true);
   const [activeTab, setActiveTab] = useState("config");
 
   const toggleDrawer = () => {
     setIsOpen(!isOpen);
   };
 
-  const handleSave = () => {};
+  const handleSave = () => {
+    // writeConfigJsonToFile();
+    //writeDataJsonToFile();
+  };
 
   return (
     <div>
@@ -46,8 +46,8 @@ const Drawer: React.FC = () => {
               </button>
             </div>
           </div>
-          {activeTab === "config" && <div>config</div>}
-          {activeTab === "data" && <div>data</div>}
+          {activeTab === "config" && <ConfigEditor />}
+          {activeTab === "data" && <DataEditor />}
           <button className=" badge close-button" onClick={toggleDrawer}>
             Close
           </button>
@@ -60,11 +60,8 @@ const Drawer: React.FC = () => {
             }}
           >
             <div className="badge badge--first save-button">
-              <button
-                className="badge badge--first"
-                onClick={resetConfigContext}
-              >
-                Reset Config
+              <button className="badge badge--first" onClick={emptyDataContext}>
+                Empty Data
               </button>
             </div>
             <div className="badge badge--first save-button">
@@ -73,10 +70,22 @@ const Drawer: React.FC = () => {
               </button>
             </div>
             <div className="badge badge--first save-button">
-              <button className="badge badge--first" onClick={handleSave}>
-                Save Configuration Permanently
+              <button
+                className="badge badge--first"
+                onClick={resetConfigContext}
+              >
+                Reset Config
               </button>
             </div>
+
+            {/*
+
+                            <div className="badge badge--first save-button">
+                                <button className="badge badge--first" onClick={handleSave}>Save Configuration
+                                    Permanently
+                                </button>
+                            </div>
+                        */}
           </div>
         </div>
         <div

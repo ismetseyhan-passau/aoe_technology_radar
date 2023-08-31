@@ -5,6 +5,8 @@ import { ConfigData, publicUrl } from "../../config";
 import { isCustomMode } from "../../config";
 import { Item } from "../../model";
 
+//import {writeFileSync} from "fs";
+
 type ConfigContextType = {
   config: ConfigData | null;
   data: Data | null;
@@ -12,9 +14,13 @@ type ConfigContextType = {
   updateConfigContext: (config: ConfigData | null) => void;
   resetConfigContext: () => void;
   addItemToData: (item: Item | null) => void;
+  deleteItemFromData: (itemName: string | null) => void;
   updateDataContext: (data: Data | null) => void;
   emptyDataContext: () => void;
   resetDataContext: () => void;
+  setMode: () => void;
+  // writeDataJsonToFile: () => void, // for security reasons I did not implement it
+  //  writeConfigJsonToFile: () => void // We would save the config to a file to save configing changes
 };
 
 const ConfigContext = createContext<ConfigContextType | undefined>(undefined);
@@ -57,23 +63,47 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({ children }) => {
     }
   };
 
-  const dataToJsonString = () => {
-    const newData = JSON.stringify(data);
-    console.log(newData);
+  const deleteItemFromData = async (itemName: string | null) => {
+    if (data && itemName) {
+      const updatedItems = data.items.filter((item) => item.name !== itemName);
+      const newData = { ...data, items: updatedItems };
+      setData(newData);
+    }
+  };
+
+  const setMode = () => {
+    setCustomMode(!customMode);
+  };
+  const writeDataJsonToFile = () => {
+    try {
+      const newData = JSON.stringify(data);
+      //writeFileSync(customDataPath, newData);
+      console.log("Data has been written to customRd.json:", newData);
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  };
+
+  const writeConfigJsonToFile = () => {
+    try {
+      const newConfig = JSON.stringify(config);
+      //  writeFileSync(customConfigPath, newConfig);
+      console.log(`Data has been written to ${customConfigPath}`, newConfig);
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
   };
 
   async function setFirstConfig() {
     let configPath: string;
     let dataPath: string;
 
-    if (customMode) {
-      setCustomMode(true);
-      configPath = `${publicUrl}newConfig.json?${process.env.REACT_APP_BUILDHASH}`;
-      dataPath = `${publicUrl}newRd.json?${process.env.REACT_APP_BUILDHASH}`;
+    if (isCustomMode) {
+      configPath = customConfigPath;
+      dataPath = customDataPath;
     } else {
-      setCustomMode(false);
-      configPath = `${publicUrl}config.json?${process.env.REACT_APP_BUILDHASH}`;
-      dataPath = `${publicUrl}Rd.json?${process.env.REACT_APP_BUILDHASH}`;
+      configPath = defaultConfigPath;
+      dataPath = defaultDataPath;
     }
 
     const newConfig = await fetchData<ConfigData>(configPath);
@@ -90,7 +120,6 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({ children }) => {
   const resetConfigContext = async () => {
     const defaultConfig = await fetchData<ConfigData>(defaultConfigPath);
     setConfig(defaultConfig);
-    dataToJsonString();
   };
 
   const updateDataContext = (data: Data | null) => {
@@ -123,7 +152,7 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({ children }) => {
 
   useEffect(() => {
     setFirstConfig();
-  }, []);
+  }, [customMode]);
 
   return (
     <ConfigContext.Provider
@@ -134,9 +163,11 @@ export const ConfigProvider: React.FC<ConfigProviderProps> = ({ children }) => {
         updateConfigContext: updateConfigContext,
         resetConfigContext: resetConfigContext,
         addItemToData: addItemToData,
+        deleteItemFromData: deleteItemFromData,
         updateDataContext: updateDataContext,
         emptyDataContext: emptyDataContext,
         resetDataContext: resetDataContext,
+        setMode: setMode,
       }}
     >
       {children}

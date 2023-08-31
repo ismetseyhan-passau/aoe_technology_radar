@@ -26,6 +26,9 @@ export const radarNameShort = radarName;
 export const titleFormat =
   process.env.REACT_APP_RADAR_TITLE_FORMAT || "%TECHNOLOGY_NAME% | %APP_TITLE%";
 
+export const isCustomMode =
+  process.env.REACT_APP_CUSTOM_MODE === "true" || false; //for custom mode to work
+
 export function setTitle(document: Document, title?: string) {
   document.title = title
     ? titleFormat
@@ -48,8 +51,6 @@ export function isMobileViewport() {
   return width < 1200;
 }
 
-export const isCustomMode =
-  process.env.REACT_APP_CUSTOM_MODE === "true" || false;
 export const publicUrl =
   (process.env.PUBLIC_URL || "").replace(/\/$/, "") + "/";
 

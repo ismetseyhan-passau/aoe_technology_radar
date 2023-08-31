@@ -11,9 +11,24 @@ type BadgeProps = {
   config: ConfigData;
 };
 
+const mapRingPosition = (ring: string) => {
+  switch (ring) {
+    case "adopt":
+      return "first";
+    case "trial":
+      return "second";
+    case "assess":
+      return "third";
+    case "hold":
+      return "fourth";
+    default:
+      return ring;
+  }
+};
+
 const badgeClass = (type: string, config: ConfigData) => {
   if (!config.rings.includes(type)) {
-    return type;
+    return mapRingPosition(type);
   }
   return ["first", "second", "third", "fourth"][config.rings.indexOf(type)];
 };

@@ -81,6 +81,21 @@ function renderBlip(
   }
 }
 
+const mapRingPosition = (ring: string) => {
+  switch (ring) {
+    case "adopt":
+      return 0;
+    case "trial":
+      return 1;
+    case "assess":
+      return 2;
+    case "hold":
+      return 3;
+    default:
+      return -1;
+  }
+};
+
 const BlipPoints: React.FC<{
   items: Item[];
   xScale: ScaleLinear<number, number>;
@@ -100,7 +115,10 @@ const BlipPoints: React.FC<{
     let blip: Blip = {
       ...item,
       quadrantPosition: quadrantConfig.position,
-      ringPosition: config.rings.findIndex((r) => r === item.ring),
+      ringPosition:
+        config.rings.findIndex((r) => r === item.ring) != -1
+          ? config.rings.findIndex((r) => r === item.ring)
+          : mapRingPosition(item.ring),
       colour: quadrantConfig.colour,
       txtColour: quadrantConfig.txtColour,
       coordinates: { x: 0, y: 0 },

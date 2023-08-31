@@ -50,4 +50,15 @@
     font-size: 12px;
     color: var(--color-gray-normal);
   }
+
+}
+
+.delete-button {
+  background: var(--color-red);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  margin: 10px 15px;
+  font-size: 10px;
+  cursor: pointer;
 }

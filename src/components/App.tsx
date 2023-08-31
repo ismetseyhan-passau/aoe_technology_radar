@@ -1,5 +1,5 @@
 import classNames from "classnames";
-import React, { useEffect } from "react";
+import React from "react";
 import {
   BrowserRouter,
   Navigate,
@@ -91,11 +91,7 @@ export interface Data {
 }
 
 export default function App() {
-  const { data, config } = useConfig();
-
-  useEffect(() => {
-    console.log("changed");
-  }, [data, config]);
+  const { data, config, customMode, setMode } = useConfig();
 
   const messages = useFetch<Messages>(
     `${publicUrl}messages.json?${process.env.REACT_APP_BUILDHASH}`
@@ -111,7 +107,7 @@ export default function App() {
               path={"/*"}
               element={
                 <div>
-                  <DrawerRight />
+                  {customMode && <DrawerRight />}
                   <div className="page">
                     <div className="page__header">
                       <HeaderWithPageParam items={items} />
@@ -127,6 +123,9 @@ export default function App() {
                       <FooterWithPageParam items={items} />
                     </div>
                   </div>
+                  <div className="custom-mode-button" onClick={setMode}>
+                    Change to {customMode ? "Default Mode" : "Custom Mode"}
+                  </div>
                 </div>
               }
             />
@@ -138,7 +137,8 @@ export default function App() {
         </BrowserRouter>
       </MessagesProvider>
     );
+  } else {
+    return <DrawerRight />;
   }
-
   return null;
 }
