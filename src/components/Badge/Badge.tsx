@@ -1,7 +1,7 @@
 import classNames from "classnames";
-import React, {MouseEventHandler} from "react";
+import React, { MouseEventHandler } from "react";
 
-import {ConfigData} from "../../config";
+import { ConfigData } from "../../config";
 import "./badge.scss";
 
 type BadgeProps = {
@@ -10,7 +10,6 @@ type BadgeProps = {
   type: "big" | "all" | "empty" | string;
   config: ConfigData;
 };
-
 
 const mapRingPosition = (ring: string) => {
   switch (ring) {
@@ -25,7 +24,7 @@ const mapRingPosition = (ring: string) => {
     default:
       return ring;
   }
-}
+};
 
 const badgeClass = (type: string, config: ConfigData) => {
   if (!config.rings.includes(type)) {
@@ -35,23 +34,23 @@ const badgeClass = (type: string, config: ConfigData) => {
 };
 
 export default function Badge({
-                                onClick,
-                                big,
-                                type,
-                                config,
-                                children,
-                              }: React.PropsWithChildren<BadgeProps>) {
+  onClick,
+  big,
+  type,
+  config,
+  children,
+}: React.PropsWithChildren<BadgeProps>) {
   const Comp = onClick ? "a" : "span";
 
   return (
-      <Comp
-          className={classNames("badge", `badge--${badgeClass(type, config)}`, {
-            "badge--big": big === true,
-          })}
-          onClick={onClick}
-          href={Comp === "a" ? "#" : undefined}
-      >
-        {children}
-      </Comp>
+    <Comp
+      className={classNames("badge", `badge--${badgeClass(type, config)}`, {
+        "badge--big": big === true,
+      })}
+      onClick={onClick}
+      href={Comp === "a" ? "#" : undefined}
+    >
+      {children}
+    </Comp>
   );
 }
