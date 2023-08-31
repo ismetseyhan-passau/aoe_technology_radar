@@ -1,3 +1,28 @@
+# AOE Technology Radar Customization Tool
+
+The AOE Technology Radar Customization Tool is an innovative extension of the original "aoe_technology_radar" project. By forking and enhancing the project, new features have been introduced that empower users to tailor their technology radar experiences according to their preferences. This tool offers a versatile solution that enables users to customize their radar through a convenient right-hand side drawer window.
+
+Key Features:
+
+## Customization Drawer: 
+The added functionality presents a user-friendly drawer window on the right side of the screen. This drawer serves as a hub for a range of customizable options, providing users with enhanced control over their technology radar.
+
+## Tailored Radar Configuration: 
+Users can perform intricate design configurations with the customization tool to match their unique needs. The tool allows for seamless visual elements and layout adjustment, creating a personalized radar representation.
+
+## Data Manipulation: 
+The tool also introduces advanced data manipulation capabilities. Users can manipulate data, add new entries, remove existing ones, and refine the radar's content based on their evolving technological landscape.
+
+## State Management Insights: 
+
+One of the standout features of this customization tool is its ability to display state management scenarios. Users can interact with the tool to see how different state management approaches are reflected on the radar, offering valuable insights into technology adoption strategies.
+
+
+https://techradar.ismetseyhan.com/index.html
+
+
+------
+
 # AOE Technology Radar
 A static site generator for AOE Technology Radar
 
