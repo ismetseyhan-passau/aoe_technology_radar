@@ -27,7 +27,7 @@ export const titleFormat =
   process.env.REACT_APP_RADAR_TITLE_FORMAT || "%TECHNOLOGY_NAME% | %APP_TITLE%";
 
 export const isCustomMode =
-  process.env.REACT_APP_CUSTOM_MODE === "true" || false; //for custom mode to work
+    process.env.REACT_APP_CUSTOM_MODE ==="true" || false; //for custom mode to work
 
 export function setTitle(document: Document, title?: string) {
   document.title = title

@@ -44,4 +44,19 @@ body {
   overflow: hidden;
 }
 
+.custom-mode-button {
+  position: fixed;
+  bottom: 35%;
+  left: 20px;
+  background: var(--color-red);
+  color: white;
+  border: none;
+  border-radius: 30px;
+  padding: 10px 15px;
+  font-size: 14px;
+  cursor: pointer;
+  z-index: 1001;
+
+}
+
 @import "./styles/main.scss";
